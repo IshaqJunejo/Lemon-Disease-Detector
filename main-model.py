@@ -41,13 +41,17 @@ model = models.Sequential([
     layers.Rescaling(1./255), # normalization
 
     layers.Conv2D(32, (3, 3), activation='relu', input_shape=(IMG_SIZE, IMG_SIZE, 3)),
-    layers.MaxPooling2D(), # first convolution and max-pooling
+    layers.MaxPooling2D(),
 
     layers.Conv2D(64, (3, 3), activation='relu'),
-    layers.MaxPooling2D(), # second convolution and max-pooling
+    layers.MaxPooling2D(),
+
+#    layers.Conv2D(128, (3, 3), activation='relu'),
+#    layers.MaxPooling2D((2, 2)),
 
     layers.Flatten(),
     layers.Dense(128, activation='relu'),
+    layers.Dropout(0.3),
     layers.Dense(len(train_ds.class_names), activation='softmax')
 ])
 
@@ -61,4 +65,4 @@ test_loss, test_acc = model.evaluate(test_ds)
 print(f"Test accuracy: {test_acc:.2f}")
 
 # Saving our model
-model.save("models/main-01.keras")
+model.save("models/main-05.keras")
