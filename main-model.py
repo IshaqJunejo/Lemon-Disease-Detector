@@ -45,24 +45,25 @@ model = models.Sequential([
 
     layers.Conv2D(64, (3, 3), activation='relu'),
     layers.MaxPooling2D(),
+    layers.Dropout(0.2),
 
-#    layers.Conv2D(128, (3, 3), activation='relu'),
-#    layers.MaxPooling2D((2, 2)),
+    layers.Conv2D(128, (3, 3), activation='relu'),
+    layers.MaxPooling2D(),
 
+    layers.Dropout(0.2),
     layers.Flatten(),
     layers.Dense(128, activation='relu'),
-    layers.Dropout(0.3),
     layers.Dense(len(train_ds.class_names), activation='softmax')
 ])
 
 model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
 # Train the model
-history = model.fit(train_ds, validation_data=validate_ds, epochs=10)
+history = model.fit(train_ds, validation_data=validate_ds, epochs=20)
 
 # Testing the model
 test_loss, test_acc = model.evaluate(test_ds)
 print(f"Test accuracy: {test_acc:.2f}")
 
 # Saving our model
-model.save("models/main-05.keras")
+model.save("models/main-06.keras")

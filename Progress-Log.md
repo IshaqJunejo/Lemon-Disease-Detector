@@ -13,3 +13,11 @@ Tried using `BatchNormalization()`, removing `Data Augmentation`, increasing `IM
 Finally, after a lot of different configurations, what worked considerablly well is just adding a `Dropout` layer.
 It resulted in a `training accuracy` of **79%**, `validation accuracy` of **79%**, and a `testing accuracy` of **77%**.
 Although the accuracy is slightly lower, but over-fitting is slightly reduced.
+
+## Third Attempt
+
+Just a few changes in the model, changed the position of `Dropout` layer and added another one, added another set of `Conv2D` and `MaxPooling2D` layers.
+Also increase the number of epochs from **10** to **20**.
+Achieved a `training accuracy` of **90%**, `validation accuracy` of **83%**, and a `testing accuracy` of **82%**.
+
+I guess, will have to try `Transfer Learning` in the next step, considering the small size of the dataset.
