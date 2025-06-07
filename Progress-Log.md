@@ -34,3 +34,12 @@ And it lead to some *Not so Great* Results.
 
 Resolved this problem, and trained the top layers for `15 Epochs`.
 Achieved **95.7%** `Training Accuracy`, **95.2%** `Validation Accuracy`, and **96%** `Testing Accuracy`.
+
+## Attempt at a Binary Classifier
+
+Implemented a Convolutional Binary Classifier for detecting if a given image is of a **Lemon Leaf** or not.
+Gathered a makeshift dataset by combining images from `PlantVillage` and `Natural Images` datasets to consist of images for *Not Lemon Leaves* and images from the `Lemon Leaf Disease Dataset` to consist of images for *Lemon Leaves*.
+
+Also went with Transfer Learning using the same `MobileNetV2`, and achieved a `training accuracy` of **98.9%**, `validation accuracy` of **100%**, and a `testing accuracy` of **99.7%**.
+
+So the idea is basically to first input a image from the `Binary Classifier` to confirm if the given image is of a *Lemon Leaf*, if affirmative, it would be given as an input to `Multi-Class Classifier` that is just been implemented.
