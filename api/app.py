@@ -8,7 +8,8 @@ import io
 app = Flask(__name__)
 CORS(app) # Enabling Cross-Origin Requests
 
-model = load_model("../core/models/lemon-leaf-or-not.keras")
+model1 = load_model("../core/models/lemon-leaf-or-not.keras")
+model2 = load_model("../core/models/lemon-leaf-disease-detector.keras")
 
 IMG_SIZE = (224, 224)
 
@@ -19,14 +20,20 @@ def test():
 
     file = request.files['image']
 
+    # processing image
     img = image.load_img(io.BytesIO(file.read()), target_size=IMG_SIZE)
     img_array = image.img_to_array(img)
     img_array = np.expand_dims(img_array, axis=0)
     img_array = img_array / 255.0
 
-    predictions = model.predict(img_array)
+    # predicting using the model
+    prob_of_leaf = model1.predict(img_array)
 
-    return jsonify({"Prediction": predictions.tolist()})
+    if prob_of_leaf[0][0] <= 0.5:
+        return jsonify({"Prediction":"Doesn't Look like a Lemon Leaf"})
+    else:
+        prob_of_disease = model2.predict(img_array)
+        return jsonify({"Prediction": prob_of_disease.tolist()})
 
 if __name__ == '__main__':
     app.run(debug=True)

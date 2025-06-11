@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Test Flask Image API</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lemon Leaf Disease Detector</title>
+	<link rel="stylesheet" href="static/style.css">
 </head>
 <body>
-  <h2>Upload Image</h2>
-  <input type="file" id="imageInput" accept="image/*">
-  <button onclick="uploadImage()">Send to API</button>
+	<h2>Upload Image</h2>
+	<input type="file" id="imageInput" accept="image/*" hidden>
+	<label for="imageInput" class="upload-image">Choose Image</label>
 
-  <h3>Response:</h3>
-  <pre id="responseArea"></pre>
+	<br>
+	<img id="preview" src="" alt="Image Preview will appear here">
 
-  <script src="static/script.js"></script>
+	<button id="send-to-api" onclick="uploadImage()">Send to API</button>
+
+	<h3>Response:</h3>
+	<pre id="responseArea"></pre>
+
+	<script src="static/script.js"></script>
 </body>
 </html>
