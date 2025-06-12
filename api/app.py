@@ -13,12 +13,16 @@ model2 = load_model("../core/models/lemon-leaf-disease-detector.keras")
 
 IMG_SIZE = (224, 224)
 
+# File Size Limit: 5 MB
+app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
+
 @app.route('/predict', methods=['POST'])
 def test():
-    if 'image' not in request.files:
-        return jsonify({"error": "No file uploaded"}), 400
-
     file = request.files['image']
+
+    # Validating the file is an image
+    if not file or not file.mimetype.startswith('image/'):
+        return jsonify({"error": "Invalid image upload"}), 400
 
     # processing image
     img = image.load_img(io.BytesIO(file.read()), target_size=IMG_SIZE)
@@ -36,4 +40,4 @@ def test():
         return jsonify({"Prediction": prob_of_disease.tolist()})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

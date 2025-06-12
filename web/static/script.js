@@ -10,14 +10,41 @@ const LABELS = [
     'Spider Mites'
 ];
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 Megabytes
+
 const input = document.querySelector('#imageInput');
 const preview = document.querySelector("#preview");
 const sendButton = document.querySelector("#send-to-api");
+const responseArea = document.querySelector('#responseArea');
 
 // Show preview when an image is selected
 input.addEventListener('change', () => {
     console.log("File Input Changed");
     const file = input.files[0];
+
+    // --- VALIDATION ---
+    if (!file) {
+        // no file → clear UI
+        preview.style.display = 'none';
+        sendButton.style.display = 'none';
+        responseArea.textContent = '';
+        return;
+    }
+
+    // File Type Check: must be image/*
+    if (!file.type.startsWith('image/')) {
+        alert('Please select a valid image file (jpg, png, etc.)');
+        input.value = '';
+        return;
+    }
+
+    // 2) File Size Check: max 5 MB
+    if (file.size > MAX_FILE_SIZE) {
+        alert('File too large! Please select an image under 5 MB.');
+        input.value = '';
+        return;
+    }
+
     if (file) {
         const reader = new FileReader();
         reader.onload = e => {
@@ -25,6 +52,7 @@ input.addEventListener('change', () => {
             preview.style.display = 'block';
             sendButton.style.display = 'block';
         };
+        responseArea.textContent = '';
         reader.readAsDataURL(file);
     } else {
         preview.src = '';
@@ -49,8 +77,18 @@ function processResponse(pred) {
 async function uploadImage() {
     const file = input.files[0];
 
+    responseArea.textContent = "Analyzing ... ";
+
     if (!file) {
         alert("Please select an image.");
+        return;
+    }
+    if (!file.type.startsWith('image/')) {
+        alert("Invalid file — please select an image");
+        return;
+    }
+    if (file.size > MAX_FILE_SIZE) {
+        alert("Don't upload images larger than 5 MB");
         return;
     }
 
@@ -63,10 +101,10 @@ async function uploadImage() {
     })
     .then(response => response.json())
     .then(data => {
-        document.getElementById('responseArea').textContent = processResponse(data);
+        responseArea.textContent = processResponse(data);
     })
     .catch(error => {
-        document.getElementById('responseArea').textContent = "Error: " + error;
+        responseArea.textContent = "Error: " + error;
     });
 
 }
