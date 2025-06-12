@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Lemon Disease Detector - Ishaque Junejo</title>
+	<link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+	<h1>Lemon Disease Detector</h1>
+	<h2>Upload Image</h2>
+	<input type="file" id="imageInput" accept="image/*" hidden>
+	<label for="imageInput" class="upload-image">Choose Image</label>
+
+	<br>
+	<img id="preview" src="" alt="Image Preview will appear here">
+
+	<button id="send-to-api" onclick="uploadImage()">Send to API</button>
+
+	<h3>Response:</h3>
+	<pre id="responseArea"></pre>
+
+	<script src="static/script.js"></script>
+</body>
+</html>

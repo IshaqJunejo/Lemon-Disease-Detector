@@ -1,12 +1,8 @@
 # Lemon Disease Detector
 
-## Plan
+A Bi-model Deep Learning Architecture to detect the disease of Lemon Leaves using `Convolutional Neural Networks`.
 
-So the plan is to create 2 `Convolutional Neural Networks`, a `Binary Classifier` and a `Multi-Class Classifier`.
-
-The `Binary Classifier` should be able to tell apart if a given image is of a *Lemon Leaf* or not. If the image is of a *Lemon Leaf*, it would be given as an input to the Next Model.
-
-The `Multi-Class Classifier` should be able to predict if the *Lemon Leaf* is Healthy or has any of the given diseases.
+It can categorize Lemon Leaves into Healthy Leaves, and into these Diseases,
 - Anthracnose
 - Bacterial Blight
 - Citrus Canker
@@ -16,7 +12,15 @@ The `Multi-Class Classifier` should be able to predict if the *Lemon Leaf* is He
 - Sooty Mould
 - Spider Mites
 
-The plan is mostly executed, one thing that remains is to use the combination of both these models in a basic web-app to test the architecture in the real-world.
+## Architecture
+
+Architecture is based on 2 `Convolutional Neural Networks`.
+
+First one is a `Binary Classification Model` that can tell if a given image is a *Lemon Leaf* or *Not*. The Image is passed to second model only if it is a *Lemon Leaf*.
+
+Second model is a `Multi-Class Classifier` that tells the likelihood of the given image of Lemon Leaf having each *disease* and of being *healthy*.
+
+Both models are based of `MobileNetV2` for Transfer Learning, as there was limited number of images to train a model from scratch.
 
 ### Dataset
 
