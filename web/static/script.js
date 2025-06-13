@@ -95,7 +95,7 @@ async function uploadImage() {
     const formData = new FormData();
     formData.append('image', file);
 
-    fetch('http://10.250.14.198:8000/predict', {
+    fetch('https://lemon-disease-detector-production.up.railway.app/predict', {
         method: 'POST',
         body: formData
     })
