@@ -95,7 +95,7 @@ async function uploadImage() {
     const formData = new FormData();
     formData.append('image', file);
 
-    fetch('http://127.0.0.1:5000/predict', {
+    fetch('http://10.250.14.198:8000/predict', {
         method: 'POST',
         body: formData
     })

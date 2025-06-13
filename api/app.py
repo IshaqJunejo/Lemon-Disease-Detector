@@ -6,7 +6,7 @@ import numpy as np
 import io
 
 app = Flask(__name__)
-CORS(app) # Enabling Cross-Origin Requests
+CORS(app, origins=["https://lemon-disease-detector.netlify.app/"]) # Enabling Cross-Origin Requests
 
 IMG_SIZE = (224, 224)
 
