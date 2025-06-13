@@ -43,3 +43,9 @@ Gathered a makeshift dataset by combining images from `PlantVillage` and `Natura
 Also went with Transfer Learning using the same `MobileNetV2`, and achieved a `training accuracy` of **98.9%**, `validation accuracy` of **100%**, and a `testing accuracy` of **99.7%**.
 
 So the idea is basically to first input a image from the `Binary Classifier` to confirm if the given image is of a *Lemon Leaf*, if affirmative, it would be given as an input to `Multi-Class Classifier` that is just been implemented.
+
+## Model Optimization
+
+Completed the build for a simple Web App and a basic Flask API is almost ready for Deployment.
+
+Just went with optimizing the model from using `.keras` Model Quantization and using the `.tflite` format (from `float32` to `int8`). Model file size went from `11.3 MB` each to `2.8 MB` each, and the memory consumption of the Flask API running locally went from `370 MB` to `270 MB`.
