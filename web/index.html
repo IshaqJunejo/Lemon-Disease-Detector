@@ -12,14 +12,19 @@
 	<input type="file" id="imageInput" accept="image/*" hidden>
 	<label for="imageInput" class="upload-image">Choose Image</label>
 
+	<canvas id="canvas" width="224" height="224" style="display: none;"></canvas>
+
 	<br>
 	<img id="preview" src="" alt="Image Preview will appear here">
 
-	<button id="send-to-api" onclick="uploadImage()">Send to API</button>
+	<button id="analyze-image" onclick="analyzeImage()">Analyze</button>
 
 	<h3>Response:</h3>
 	<pre id="responseArea"></pre>
 
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm@4.14.0/dist/tfjs-backend-wasm.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-tflite@0.0.1-alpha.4/dist/tf-tflite.min.js"></script> -->
 	<script src="static/script.js"></script>
 </body>
 </html>
