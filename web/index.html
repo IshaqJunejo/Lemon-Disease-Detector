@@ -12,10 +12,12 @@
 	<input type="file" id="imageInput" accept="image/*" hidden>
 	<label for="imageInput" class="upload-image">Choose Image</label>
 
+	<canvas id="canvas" width="224" height="224" style="display: none;"></canvas>
+
 	<br>
 	<img id="preview" src="" alt="Image Preview will appear here">
 
-	<button id="send-to-api" onclick="uploadImage()">Send to API</button>
+	<button id="analyze-image" onclick="analyzeImage()">Analyze</button>
 
 	<h3>Response:</h3>
 	<pre id="responseArea"></pre>

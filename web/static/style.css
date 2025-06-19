@@ -44,7 +44,7 @@ input[type="file"] {
     background-color: #2563eb;
 }
 
-#send-to-api {
+#analyze-image {
     display: none;
     padding: 10px 20px;
     background-color: #3b82f6;
@@ -58,7 +58,7 @@ input[type="file"] {
     max-width: 400px;
 }
 
-#send-to-api:hover {
+#analyze-image:hover {
     background-color: #2563eb;
 }
 
@@ -96,7 +96,7 @@ input[type="file"] {
     }
 
     input[type="file"],
-    #send-to-api,
+    #analyze-image,
     .upload-image {
         font-size: 14px;
         padding: 8px;

@@ -14,7 +14,7 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 Megabytes
 
 const input = document.querySelector('#imageInput');
 const preview = document.querySelector("#preview");
-const sendButton = document.querySelector("#send-to-api");
+const sendButton = document.querySelector("#analyze-image");
 const responseArea = document.querySelector('#responseArea');
 
 // Show preview when an image is selected
@@ -74,7 +74,7 @@ function processResponse(pred) {
     }
 }
 
-async function uploadImage() {
+async function analyzeImage() {
     const file = input.files[0];
 
     responseArea.textContent = "Analyzing ... ";
@@ -92,19 +92,20 @@ async function uploadImage() {
         return;
     }
 
+    
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append("file", file);
 
-    fetch('https://lemon-disease-detector-production.up.railway.app/predict', {
-        method: 'POST',
+    fetch("http://192.168.1.13:7860/predict", {
+        method: "POST",
         body: formData
     })
     .then(response => response.json())
     .then(data => {
+        console.log(data);
         responseArea.textContent = processResponse(data);
     })
     .catch(error => {
-        responseArea.textContent = "Error: " + error;
+        console.log("Error: ", error);
     });
-
 }

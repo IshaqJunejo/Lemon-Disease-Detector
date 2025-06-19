@@ -39,5 +39,5 @@ converter.inference_output_type = tf.int8
 tflite_model = converter.convert()
 
 # Save the model
-with open("../api/models/lemon-leaf-or-not.tflite", "wb") as f:
+with open("../web/static/models/lemon-leaf-or-not.tflite", "wb") as f:
     f.write(tflite_model)
