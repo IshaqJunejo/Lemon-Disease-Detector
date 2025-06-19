@@ -2,6 +2,7 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import load_model
 from tensorflow.keras import layers, models
+from sklearn.metrics import classification_report, confusion_matrix, f1_score
 
 IMG_SIZE = 224
 BATCH_SIZE = 32
@@ -77,4 +78,4 @@ test_loss, test_acc = model.evaluate(test_data)
 print(f"Test accuracy: {test_acc:.2f}")
 
 # Save the model
-model.save("models/lemon-leaf-or-not.keras")
+#model.save("models/lemon-leaf-or-not.keras")
