@@ -1,6 +1,6 @@
-Flask
+flask
 flask-cors
 tensorflow
-Pillow
 numpy
-gunicorn
+Pillow
+huggingface_hub
