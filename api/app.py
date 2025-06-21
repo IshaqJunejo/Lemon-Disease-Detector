@@ -1,87 +1,74 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from huggingface_hub import hf_hub_download
 import tensorflow as tf
-from tensorflow.keras.preprocessing import image
 import numpy as np
+from PIL import Image
 import io
 
-app = Flask(__name__)
-CORS(app, origins=["https://lemon-disease-detector.netlify.app/"]) # Enabling Cross-Origin Requests
+binary_model = None
+main_model = None
+
+def ensure_model_loaded():
+    global binary_model, main_model
+    # Making sure binary_model is loaded
+    if binary_model is None:
+        print("Downloading Binary Model ... ")
+        binary_model_path = hf_hub_download(repo_id="ishaquejunejo/lemon-disease-detector", filename="models/lemon-leaf-or-not.keras")
+        print(f"Binary model downloaded to: {binary_model_path}")
+        print("Loading Binary Model ... ")
+        binary_model = tf.keras.models.load_model(binary_model_path)
+    
+    # Making sure main_model is loaded
+    if main_model is None:
+        print("Downloading Main Model ... ")
+        main_model_path = hf_hub_download(repo_id="ishaquejunejo/lemon-disease-detector", filename="models/lemon-leaf-disease-detector.keras")
+        print(f"Main Model downloaded to: {main_model_path}")
+        print("Loading Main Model ... ")
+        main_model = tf.keras.models.load_model(main_model_path)
 
 IMG_SIZE = (224, 224)
 
-# File Size Limit: 5 MB
-app.config['MAX_CONTENT_LENGTH'] = 5 * 1024 * 1024
+# Processing the Image
+def preprocess(image):
+    image = image.resize(IMG_SIZE)
+    image_array = np.array(image) / 255.0
+    return np.expand_dims(image_array, axis=0)
 
+# Method for prediction of the image
+def predict_from_image_file(image_bytes):
+    try:
+        image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+    except Exception:
+        return {"error": "Invalid image input"}
 
-# Load TFLite models
-interpreter1 = tf.lite.Interpreter(model_path="models/lemon-leaf-or-not.tflite")
-interpreter2 = tf.lite.Interpreter(model_path="models/lemon-leaf-disease-detector.tflite")
+    input_data = preprocess(image)
 
-interpreter1.allocate_tensors()
-interpreter2.allocate_tensors()
+    leaf_prob = binary_model.predict(input_data)
+    if leaf_prob[0][0] < 0.5:
+        return jsonify({"Prediction": "Doesn't Look like a Lemon Leaf"})
 
-# Get input/output details
-input_details_1 = interpreter1.get_input_details()
-output_details_1 = interpreter1.get_output_details()
+    disease_prob = main_model.predict(input_data)
 
-input_details_2 = interpreter2.get_input_details()
-output_details_2 = interpreter2.get_output_details()
+    return jsonify({"Prediction": disease_prob.tolist()})
 
-def preprocess_image(file):
-    img = image.load_img(io.BytesIO(file.read()), target_size=IMG_SIZE)
-    img_array = image.img_to_array(img)
-    img_array = img_array / 255.0  # normalize
-    img_array = np.expand_dims(img_array, axis=0)  # add batch dimension
-    return img_array
-
-def run_tflite_inference(interpreter, input_details, output_details, img_array):
-    input_data = img_array
-
-    # Quantize input if needed
-    if input_details[0]['dtype'] == np.int8:
-        scale, zero_point = input_details[0]['quantization']
-        input_data = (input_data / scale + zero_point).astype(np.int8)
-    elif input_details[0]['dtype'] == np.uint8:
-        scale, zero_point = input_details[0]['quantization']
-        input_data = (input_data / scale + zero_point).astype(np.uint8)
-
-    interpreter.set_tensor(input_details[0]['index'], input_data)
-    interpreter.invoke()
-
-    output_data = interpreter.get_tensor(output_details[0]['index'])
-
-    # Dequantize output if needed
-    if output_details[0]['dtype'] in [np.int8, np.uint8]:
-        scale, zero_point = output_details[0]['quantization']
-        output_data = (output_data.astype(np.float32) - zero_point) * scale
-
-    return output_data
-
+# Running the App
+app = Flask(__name__)
+CORS(app)
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    file = request.files['image']
+    ensure_model_loaded()
+    if 'file' not in request.files:
+        return jsonify({"error": "No file part"}), 400
 
-    # Validating the file is an image
-    if not file or not file.mimetype.startswith('image/'):
-        return jsonify({"error": "Invalid image upload"}), 400
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({"error": "No selected file"}), 400
 
-    try:
-        img_array = preprocess_image(file)
+    image_bytes = file.read()
+    prediction = predict_from_image_file(image_bytes)
+    return prediction
 
-        # predicting using the binary model
-        prob_of_leaf = run_tflite_inference(interpreter1, input_details_1, output_details_1, img_array)
-
-        if prob_of_leaf[0][0] <= 0.5:
-            return jsonify({"Prediction":"Doesn't Look like a Lemon Leaf"})
-        else:
-            # predicting using the main model
-            prob_of_disease = run_tflite_inference(interpreter2, input_details_2, output_details_2, img_array)
-            return jsonify({"Prediction": prob_of_disease.tolist()})
-
-    except Exception as e:
-        return jsonify({"error": f"Failed to process image: {str(e)}"}), 500        
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=7860)

@@ -19,7 +19,6 @@ const responseArea = document.querySelector('#responseArea');
 
 // Show preview when an image is selected
 input.addEventListener('change', () => {
-    console.log("File Input Changed");
     const file = input.files[0];
 
     // --- VALIDATION ---
@@ -91,18 +90,16 @@ async function analyzeImage() {
         alert("Don't upload images larger than 5 MB");
         return;
     }
-
     
     const formData = new FormData();
     formData.append("file", file);
 
-    fetch("http://192.168.1.13:7860/predict", {
+    fetch("http://127.0.0.1:7860/predict", {
         method: "POST",
         body: formData
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         responseArea.textContent = processResponse(data);
     })
     .catch(error => {
