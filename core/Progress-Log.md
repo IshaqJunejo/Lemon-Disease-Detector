@@ -49,3 +49,9 @@ So the idea is basically to first input a image from the `Binary Classifier` to 
 Completed the build for a simple Web App and a basic Flask API is almost ready for Deployment.
 
 Just went with optimizing the model from using `.keras` Model Quantization and using the `.tflite` format (from `float32` to `int8`). Model file size went from `11.3 MB` each to `2.8 MB` each, and the memory consumption of the Flask API running locally went from `370 MB` to `270 MB`.
+
+## No API Deployment
+
+The API is working properly on my Local Machine, but after many attempts to deploy it on a Cloud Platform, I realized that it was not easy to work with Cloud Computing on Free Tier. I tried a total of 4 third-party services to use for deploying the API, and also tried using `Tensorflow-JS` for running Inference on Browser, but ran into a Compatibility Issue which doesn't let complex layers like that of models used for Transfer Learning be converted from `.h5` to `.json` format.
+
+Now, the code for both `Flask API` and `Frontend Client` is hosted on the GitHub Repository, but they are not hosted anywhere, anyone trying to use it, will have to run 2 small servers on their machine.
