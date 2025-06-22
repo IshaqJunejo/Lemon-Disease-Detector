@@ -2,6 +2,8 @@
 
 A Bi-model Deep Learning Architecture to detect the disease of Lemon Leaves using `Convolutional Neural Networks`.
 
+The models are also available on [HuggingFace Models](https://huggingface.co/IshaqueJunejo/Lemon-Disease-Detector).
+
 ## Demo
 
 ![Demo Usage](Images/Usage-Demo.gif)
