@@ -18,6 +18,12 @@ Second model is a `Multi-Class Classifier` that tells the likelihood of the give
 
 Both models are based of `MobileNetV2` for Transfer Learning, as there was limited number of images to train a model from scratch.
 
+You can also have a look at the [Evaluation and Metrics](core/Evaluation-and-Metrics.md).
+
+If you want to train these models yourself, you can read [Reproducibility Procedure](core/Reproducibility.md).
+
+You can also have a look at the [Progress Log](core/Progress-Log.md) for a glimpse of failures encountered on the way.
+
 ## How to use
 
 To use this project, you will have to run it locally on your machine, as there is no publically available Inference API endpoint.
@@ -57,8 +63,6 @@ Any and every contribution you wish to make for this project is highly appreciat
 - [Lemon Leaf Disease Dataset](https://www.kaggle.com/datasets/mahmoudshaheen1134/lemon-leaf-disease-dataset-lldd) on Kaggle
 - [PlantVillage Dataset](https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset) on Kaggle
 - [Natural Images Dataset](https://www.kaggle.com/datasets/prasunroy/natural-images) on Kaggle
-
-Images from `PlantVillage` and `Natural Images` dataset were used as *Not Lemon Leaves* for training and testing the `Binary Classification Model`.
 
 ## License
 

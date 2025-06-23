@@ -78,4 +78,4 @@ test_loss, test_acc = model.evaluate(test_data)
 print(f"Test accuracy: {test_acc:.2f}")
 
 # Save the model
-#model.save("models/lemon-leaf-or-not.keras")
+model.save("models/lemon-leaf-or-not.keras")
