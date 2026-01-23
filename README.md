@@ -22,13 +22,15 @@ You can also have a look at the [Evaluation and Metrics](core/Evaluation-and-Met
 
 If you want to train these models yourself, you can read [Reproducibility Procedure](core/Reproducibility.md).
 
+If you want to have a look at the real-world behaviour of this pipeline, you can read the [Field Test Analysis](field-test/analysis.md).
+
 You can also have a look at the [Progress Log](core/Progress-Log.md) for a glimpse of failures encountered on the way.
 
 ## How to use
 
-To use this project, you will have to run it locally on your machine, as there is no publically available Inference API endpoint.
+To use this project, you will have to run it locally on your machine, or you can use the [Gradio Space on HuggingFace](https://huggingface.co/spaces/IshaqueJunejo/Lemon-Disease-Detection).
 
-- First clone this repository.
+- To run it locally, first clone this repository.
 ``` bash
 git clone https://github.com/IshaqJunejo/Lemon-Disease-Detector.git
 ```
