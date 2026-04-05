@@ -66,6 +66,24 @@ Any and every contribution you wish to make for this project is highly appreciat
 - [PlantVillage Dataset](https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset) on Kaggle
 - [Natural Images Dataset](https://www.kaggle.com/datasets/prasunroy/natural-images) on Kaggle
 
+## Citation
+
+If you use this code or the findings from this repository or the preprint in your research, please cite it as follows:
+
+``` bibtex
+@misc{junejo_2026_19428847,
+  author       = {Junejo, Muhammad Ishaque},
+  title        = {A Dual-Model Deep Learning Pipeline for Disease Classification in Lemon Leaves},
+  month        = apr,
+  year         = 2026,
+  publisher    = {Zenodo},
+  version      = {1.0},
+  doi          = {10.5281/zenodo.19428847},
+  url          = {https://doi.org/10.5281/zenodo.19428847},
+}
+```
+
+
 ## License
 
 This project is Licensed Under [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](LICENSE) due to the inclusion of [Plantvillage Dataset](https://www.kaggle.com/datasets/abdallahalidev/plantvillage-dataset) and [Natural Images Dataset](https://www.kaggle.com/datasets/prasunroy/natural-images) which are also License under **CC BY-NC-SA 4.0**. 
