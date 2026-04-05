@@ -1,8 +1,12 @@
 # Lemon Disease Detector
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19428847.svg)](https://doi.org/10.5281/zenodo.19428847)
+
 A Bi-model Deep Learning Architecture to detect the disease of Lemon Leaves using `Convolutional Neural Networks`.
 
 The models are also available on [HuggingFace Models](https://huggingface.co/IshaqueJunejo/Lemon-Disease-Detector).
+
+You can try using the model pipeline yourself from the [Gradio Space on HuggingFace](https://huggingface.co/spaces/IshaqueJunejo/Lemon-Disease-Detection).
 
 ## Demo
 
@@ -71,7 +75,7 @@ Any and every contribution you wish to make for this project is highly appreciat
 If you use this code or the findings from this repository or the preprint in your research, please cite it as follows:
 
 ``` bibtex
-@misc{junejo_2026_19428847,
+@misc{junejo_2026_lemon_disease_detector,
   author       = {Junejo, Muhammad Ishaque},
   title        = {A Dual-Model Deep Learning Pipeline for Disease Classification in Lemon Leaves},
   month        = apr,
